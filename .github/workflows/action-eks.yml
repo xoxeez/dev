@@ -60,6 +60,9 @@ jobs:
       - name: docer push
         run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/m-dev:tomcat_latest
       
+      - name: update kubeconfig
+        run: aws eks update-kubeconfig --name xoxeez
+      
       - name: Deploy to cluster
         uses: qazz92/kubectl@1.0.3
         env:
