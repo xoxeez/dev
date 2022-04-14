@@ -68,7 +68,4 @@ jobs:
           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws_region: eu-west-3
         with:
-          args: set image --record deployment/was was=xoxeez/m-dev:tomcat_latest
-        
-      - name: was-deploy restart
-        run: kubectl rollout restart deployment/was
+          args: kubectl rollout restart deployment/was
