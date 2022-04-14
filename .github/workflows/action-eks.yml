@@ -60,9 +60,6 @@ jobs:
       - name: docer push
         run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/m-dev:tomcat_latest
       
-      - name: update kubeconfig
-        run: sed -i .bak -e 's/v1alpha1/v1beta1/' ~/.kube/config
-      
       - name: Deploy to cluster
         uses: qazz92/kubectl@1.0.3
         env:
@@ -71,4 +68,4 @@ jobs:
           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws_region: eu-west-3
         with:
-          args: "rollout restart deployment/was"
+          args: set image --record deployment/was was=${{ secrets.DOCKERHUB_USERNAME }}/m-dev:tomcat_${GITHUB_RUN_NUMBER}
