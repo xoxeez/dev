@@ -61,7 +61,7 @@ jobs:
         run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/m-dev:tomcat_latest
       
       - name: update kubeconfig
-        run: aws eks update-kubeconfig --name xoxeez
+        run: sed -i .bak -e 's/v1alpha1/v1beta1/' ~/.kube/config
       
       - name: Deploy to cluster
         uses: qazz92/kubectl@1.0.3
